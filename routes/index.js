@@ -9,18 +9,22 @@ const user = {
   username: 'testuser',
   password: 'password123'  // Static password (no hashing)
 };
+router.get('/', function (req, res, next) {
+  console.log('User is logged in, sending welcome message');
+  res.send('Welcome, Hello World');
+});
 
 // GET home page (Protected route)
-router.get('/', auth, function (req, res, next) {
+router.get('/dashboard', auth, function (req, res, next) {
   console.log('User is logged in, sending welcome message');
   res.send('Welcome, you are logged in!');
 });
 
 // GET login page
-router.get('/login', function (req, res, next) {
+router.get('/signin', function (req, res, next) {
   console.log('Rendering login page');
   res.send(`
-    <form method="POST" action="/login">
+    <form method="POST" action="/signin">
       <input type="text" name="username" id="username" placeholder="Username" required>
       <input type="password" name="password" id="password" placeholder="Password" required>
       <button type="submit">Login</button>
@@ -29,7 +33,7 @@ router.get('/login', function (req, res, next) {
 });
 
 // POST login to authenticate user
-router.post('/login', function (req, res, next) {
+router.post('/signin', function (req, res, next) {
   const { username, password } = req.body;
   
   console.log(`Login attempt: username=${username}, password=${password}`);
@@ -55,7 +59,7 @@ router.post('/login', function (req, res, next) {
       res.cookie(process.env.COOKIE_NAME, token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
       console.log('Token set in cookies');
       
-      return res.redirect('/');
+      return res.redirect('/dashboard');
     } else {
       console.log('Invalid credentials: password mismatch');
       return res.status(400).send('Invalid credentials');
