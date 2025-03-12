@@ -1,0 +1,14 @@
+{
+    "apps": [
+      {
+        "name": "express-backend",
+        "script": "node",
+        "args": "./bin/www",
+        "env": {
+          "NODE_ENV": "production",
+          "PORT": 3000
+        }
+      }
+    ]
+  }
+  

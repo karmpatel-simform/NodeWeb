@@ -1,0 +1,14 @@
+{
+    "apps": [
+      {
+        "name": "vite-react-app", 
+        "script": "npm",
+        "interpreter": "none",
+        "args": "run dev",
+        "env": {
+          "PORT": 5173
+        }
+      }
+    ]
+  }
+  
